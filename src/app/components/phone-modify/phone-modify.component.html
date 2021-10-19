@@ -1,0 +1,11 @@
+<form *ngIf="phone !== null" #formRef="ngForm">
+    <div class="form-group">
+        <label for="name">Číslo:</label>
+        <input minlength="9" required [(ngModel)]="phone.phoneNumber" type="text" class="form-control" id="phone"
+            placeholder="Zadejte další telefonní číslo" #name="ngModel" name="phone" />
+        <small *ngIf="name.invalid && name.touched" class="text-danger">
+            Číslo musí obsahovat 9 čísel.
+        </small>
+    </div>
+ 
+</form>

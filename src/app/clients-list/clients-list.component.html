@@ -1,0 +1,71 @@
+<div class="container">
+    <h1 class="h1 text-center">Seznam všech klientů</h1>
+    <div class="row">
+        <div class="col-2">
+            Další tlačítka
+        </div>
+        <div class="col-10">
+            <div class="list-group rounded">
+                <button *ngFor="let client of clients" type="button"
+                    class="list-group-item list-group-item-action btn-primary mb-1 rounded">
+                    <div class="row">
+                        <div class="col-2">
+                            {{client.first_name}} <br>{{client.last_name}}
+                        </div>
+                        <div class="col-3">
+                            {{client.street}} {{client.house_number}} {{client.registry_number}}<br>
+                            {{client.zip}} {{client.city}}
+                        </div>
+                        <div class="col-5">
+                            <div class="row" *ngFor="let ph of client.phones">
+                                <div class="col">
+                                    <div> {{ph.phoneNumber}}</div>
+                                </div>
+                                <div class="col btn-group">
+                                    <button class="btn btn-outline-primary btn-sm mb-1"
+                                        (click)="isModalUpdatePhoneClosed = false; selectedPhone = ph;">Upravit
+                                    </button>
+
+                                    <button class="btn btn-outline-danger btn-sm mb-1"
+                                        (click)="isModalRemovePhoneClosed = false; phoneNumber = ph.phoneNumber; selectedPhone = ph;">Odstranit
+                                    </button>
+                                </div>
+                            </div>
+                            <button *ngIf="client.phones.length < 3" class="btn btn-secondary btn-sm"
+                                (click)="isModalAddPhoneClosed = false; clientId = client.client_id;">
+                                Přidat číslo
+                            </button>
+                        </div>
+                        <div class="col"></div>
+                    </div>
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<app-modal header="Přidat telefonnní číslo" [isClosed]="isModalAddPhoneClosed" [clientId]="clientId"
+    (crossClicked)="isModalAddPhoneClosed = true">
+    <app-phone-modify *ngIf="!isModalAddPhoneClosed"></app-phone-modify>
+    <button footer type="button" class="btn btn-primary" (click)="addPhone()">Uložit</button>
+    <button footer type="button" class="btn btn-secondary" (click)="isModalAddPhoneClosed = true">Zavřít</button>
+</app-modal>
+
+<app-modal *ngIf="selectedPhone !== null" header="Odstranit telefonní číslo" [isClosed]="isModalRemovePhoneClosed"
+    (crossClicked)="isModalRemovePhoneClosed = true">
+    Ostranit telefonní číslo: <strong>{{selectedPhone.phoneNumber}}</strong>?
+    <button footer type="button" class="btn btn-primary" (click)="removePhone(selectedPhone)">Odstranit</button>
+    <button footer type="button" class="btn btn-secondary" (click)="isModalRemovePhoneClosed = true">Zavřít</button>
+</app-modal>
+
+<app-modal header="Upravit telefonnní číslo" [isClosed]="isModalUpdatePhoneClosed" 
+    (crossClicked)="isModalUpdatePhoneClosed = true">
+    <app-phone-modify *ngIf="!isModalUpdatePhoneClosed" [phone]="selectedPhone"></app-phone-modify>
+    <button footer type="button" class="btn btn-primary" (click)="updatePhone()">Upravit</button>
+    <button footer type="button" class="btn btn-secondary" (click)="isModalUpdatePhoneClosed = true">Zavřít</button>
+</app-modal>
+
+
+<!-- #phoneAddRef [phone]="selectedPhone"
+*ngIf="phone !== null"-->
