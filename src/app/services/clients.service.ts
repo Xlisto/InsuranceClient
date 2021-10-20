@@ -18,6 +18,19 @@ export class ClientsService {
     return this.httpClient.get<Array<Client>>('/api/clients');
   }
 
+  addClient(client: Client) {
+    return this.httpClient.post(`/api/client`, client);
+  }
+
+  updateClient(client: Client) {
+    console.log("Client v servise"+client.client_id);
+    return this.httpClient.put(`/api/client/${client.client_id}`, client);
+  }
+
+  removeClient(client: Client) {
+    return this.httpClient.delete(`/api/client/${client.client_id}`);
+  }
+
   addPhone(phones: Array<Phone | null>, clientId: number) {
     return this.httpClient.post(`/api/phone/${clientId}`, phones);
   }

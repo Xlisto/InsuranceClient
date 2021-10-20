@@ -1,22 +1,34 @@
 <div class="container">
-    <h1 class="h1 text-center">Seznam všech klientů</h1>
+    <h1 class="h1 text-center">Soupis klientů</h1>
     <div class="row">
         <div class="col-2">
-            Další tlačítka
+            <button class="btn btn-outline-primary" (click)="isModalAddClientClosed = false">
+                Nový klient
+            </button>
         </div>
         <div class="col-10">
             <div class="list-group rounded">
                 <button *ngFor="let client of clients" type="button"
-                    class="list-group-item list-group-item-action btn-primary mb-1 rounded">
+                    class="list-group-item list-group-item-action btn-primary mb-1 p-3 rounded">
                     <div class="row">
                         <div class="col-2">
                             {{client.first_name}} <br>{{client.last_name}}
+                            <div class="btn-group-vertical mt-2">
+                                <button class="btn btn-primary btn-sm"
+                                    (click)="isModalUpdateClientClosed = false; selectedClient = client;">
+                                    Upravit klienta</button>
+                                <button class="btn btn-danger btn-sm"
+                                    (click)="isModalRemoveClientClosed = false; selectedClient = client;">
+                                    Odstranit klienta</button>
+                            </div>
+
                         </div>
                         <div class="col-3">
-                            {{client.street}} {{client.house_number}} {{client.registry_number}}<br>
+                            {{client.street}} {{client.house_number}}<span *ngIf="client.registry_number">/
+                                {{client.registry_number}}</span><br>
                             {{client.zip}} {{client.city}}
                         </div>
-                        <div class="col-5">
+                        <div class="col-5 mt-1">
                             <div class="row" *ngFor="let ph of client.phones">
                                 <div class="col">
                                     <div> {{ph.phoneNumber}}</div>
@@ -31,7 +43,8 @@
                                     </button>
                                 </div>
                             </div>
-                            <button *ngIf="client.phones.length < 3" class="btn btn-secondary btn-sm"
+                            <button *ngIf="client.phones.length < 3 && client.client_id != null"
+                                class="btn btn-secondary btn-sm"
                                 (click)="isModalAddPhoneClosed = false; clientId = client.client_id;">
                                 Přidat číslo
                             </button>
@@ -59,13 +72,31 @@
     <button footer type="button" class="btn btn-secondary" (click)="isModalRemovePhoneClosed = true">Zavřít</button>
 </app-modal>
 
-<app-modal header="Upravit telefonnní číslo" [isClosed]="isModalUpdatePhoneClosed" 
+<app-modal header="Upravit telefonnní číslo" [isClosed]="isModalUpdatePhoneClosed"
     (crossClicked)="isModalUpdatePhoneClosed = true">
     <app-phone-modify *ngIf="!isModalUpdatePhoneClosed" [phone]="selectedPhone"></app-phone-modify>
     <button footer type="button" class="btn btn-primary" (click)="updatePhone()">Upravit</button>
     <button footer type="button" class="btn btn-secondary" (click)="isModalUpdatePhoneClosed = true">Zavřít</button>
 </app-modal>
 
+<app-modal header="Přidat nového klienta" [isClosed]="isModalAddClientClosed" [sizeModal]="'modal-lg'"
+    (crossClicked)="isModalAddClientClosed = true">
+    <app-client-modify *ngIf="!isModalAddClientClosed"></app-client-modify>
+    <button footer type="button" class="btn btn-primary" (click)="addClient()">Přidat klienta</button>
+    <button footer type="button" class="btn btn-secondary" (click)="isModalAddClientClosed = true">Zavřít</button>
+</app-modal>
 
-<!-- #phoneAddRef [phone]="selectedPhone"
-*ngIf="phone !== null"-->
+<app-modal header="Upravit klienta" [isClosed]="isModalUpdateClientClosed" [sizeModal]="'modal-lg'"
+    (crossClicked)="isModalUpdateClientClosed = true">
+    <app-client-modify *ngIf="!isModalUpdateClientClosed" [client]="selectedClient"></app-client-modify>
+    <button footer type="button" class="btn btn-primary" (click)="updateClient()">Upravit klienta</button>
+    <button footer type="button" class="btn btn-secondary" (click)="isModalUpdateClientClosed = true">Zavřít</button>
+</app-modal>
+
+<app-modal *ngIf="selectedClient !== null" header="Odstranit klienta" [isClosed]="isModalRemoveClientClosed"
+    (crossClicked)="isModalRemoveClientClosed = true">
+    Odstranit clienta: <strong>{{selectedClient.first_name}} {{selectedClient.last_name}}</strong> se všemi údaji?
+    <button footer type="button" class="btn btn-primary" (click)="removeClient(selectedClient)">Odstranit
+        klienta</button>
+    <button footer type="button" class="btn btn-secondary" (click)="isModalRemoveClientClosed = true">Zavřít</button>
+</app-modal>

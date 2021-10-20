@@ -6,9 +6,10 @@ import { AppComponent } from './app.component';
 import { ClientsListComponent } from './clients-list/clients-list.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ModalComponent } from './components/modal/modal.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PhoneModifyComponent } from './components/phone-modify/phone-modify.component';
 import { TestComponent } from './test/test.component';
+import { ClientModifyComponent } from './components/client-modify/client-modify.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { TestComponent } from './test/test.component';
     ClientsListComponent,
     ModalComponent,
     PhoneModifyComponent,
-    TestComponent
+    TestComponent,
+    ClientModifyComponent
   ],
   imports: [
     BrowserModule,

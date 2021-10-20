@@ -16,6 +16,9 @@ export class ModalComponent implements OnInit {
   @Input()
   public clientId = 0;
 
+  @Input()
+  public sizeModal = "";
+
   @Output()
   crossClicked: EventEmitter<void> = new EventEmitter<void>();
 

@@ -4,6 +4,7 @@ import { ClientsService } from '../services/clients.service';
 import { Client } from '../services/Models/client.model';
 import { Phone } from '../services/Models/phone.model';
 import { PhoneModifyComponent } from '../components/phone-modify/phone-modify.component';
+import { ClientModifyComponent } from '../components/client-modify/client-modify.component';
 
 @Component({
   selector: 'app-clients-list',
@@ -21,13 +22,20 @@ export class ClientsListComponent implements AfterViewInit {
   @Input()
   phone: Phone | null = new Phone();
   selectedPhone: Phone | null = null;
+  selectedClient: Client | null = null;
 
   @ViewChild(PhoneModifyComponent, { static: false })
   phoneAddRef!: PhoneModifyComponent;
 
+  @ViewChild(ClientModifyComponent, { static: false })
+  clientAddRef!: ClientModifyComponent;
+
   isModalAddPhoneClosed = true;
   isModalRemovePhoneClosed = true;
   isModalUpdatePhoneClosed = true;
+  isModalAddClientClosed = true;
+  isModalRemoveClientClosed = true;
+  isModalUpdateClientClosed = true;
 
   constructor(
     private readonly clientsService: ClientsService,
@@ -41,16 +49,14 @@ export class ClientsListComponent implements AfterViewInit {
         (clients: Array<Client>) => { this.clients = clients; },
         (error) => console.log(error),
         () => { }
-
       );
-
   }
 
   addPhone() {
     const body = [
       this.phoneAddRef.phone
     ]
-    console.log("phone2 "+this.phoneAddRef.phone?.phoneNumber);
+
     if (this.phoneAddRef.valid) {
       this.clientsService.addPhone(body, this.clientId).subscribe(
         (response) => {
@@ -84,10 +90,10 @@ export class ClientsListComponent implements AfterViewInit {
   }
 
   updatePhone() {
-    const body = this.phoneAddRef.phone
-    
-    
-    if(this.phoneAddRef.valid) {
+    const body = this.phoneAddRef.phone;
+
+
+    if (this.phoneAddRef.valid) {
       this.clientsService.updatePhone(body).subscribe(
         (response) => {
           this.router.onSameUrlNavigation = 'reload';
@@ -105,10 +111,65 @@ export class ClientsListComponent implements AfterViewInit {
     }
 
     //console.log("body: "+body[0]!.phoneNumber);
-    console.log("phone2 "+this.phoneAddRef.valid);
-    console.log("phone2 "+this.phoneAddRef.phone?.phone_id);
+    console.log("phone2 " + this.phoneAddRef.valid);
+    console.log("phone2 " + this.phoneAddRef.phone?.phone_id);
     //this.phoneAddRef.formRef.resetForm();
   }
+
+  addClient() {
+    const body = this.clientAddRef.client;
+    //console.log("valid "+(this.clientAddRef.client?.zip)?.toString().replace(" ",""));
+
+    if (this.clientAddRef.valid && body != null) {
+      this.clientsService.addClient(body).subscribe(
+        (response) => {
+          this.router.onSameUrlNavigation = 'reload';
+          this.router.routeReuseStrategy.shouldReuseRoute = function () {
+            return false;
+          }
+          this.clientAddRef.formRef.resetForm();
+          this.isModalAddClientClosed = true;
+          this.router.navigate(['/clients-list']);
+        }, (error) => console.log(error)
+      );
+    }
+  }
+
+  updateClient() {
+    const body = this.clientAddRef.client;
+    console.log("select client: "+this.selectedClient?.client_id);
+    console.log("update client: "+body?.client_id);
+    console.log("update client: "+this.clientAddRef.valid);
+    if (this.clientAddRef.valid && body != null) {
+
+      this.clientsService.updateClient(body).subscribe(
+        (response) => {
+          this.router.onSameUrlNavigation = 'reload';
+          this.router.routeReuseStrategy.shouldReuseRoute = function () {
+            return false;
+          }
+          this.clientAddRef.formRef.resetForm();
+          this.isModalUpdateClientClosed = true;
+          this.router.navigate(['/clients-list']);
+        }, (error) => console.log(error)
+      );
+    }
+  }
+
+  removeClient(client: Client) {
+    this.clientsService.removeClient(client).subscribe(
+      (response) => {
+        this.router.onSameUrlNavigation = "reload";
+        this.router.routeReuseStrategy.shouldReuseRoute = function () {
+          return false;
+        }
+        this.isModalRemovePhoneClosed = true;
+        this.router.navigate(['clients-list']);
+      },
+      (error) => console.log(error)
+    );
+  }
+
 
 
 }
