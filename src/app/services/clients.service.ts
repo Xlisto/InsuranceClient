@@ -18,12 +18,20 @@ export class ClientsService {
     return this.httpClient.get<Array<Client>>('/api/clients');
   }
 
+  getPageClients(page: number, size: number): Observable<Array<Client>> {
+    return this.httpClient.get<Array<Client>>(`/api/pageclients?page=${page}&size=${size}`);
+  } 
+
+  getPageClientsHeader(page: number, size: number): Observable<any> {
+    return this.httpClient.get<Response>(`/api/pageclients?page=${page}&size=${size}`,{observe: 'response'});
+  }
+
   addClient(client: Client) {
     return this.httpClient.post(`/api/client`, client);
   }
 
   updateClient(client: Client) {
-    console.log("Client v servise"+client.client_id);
+    console.log("Client v servise" + client.client_id);
     return this.httpClient.put(`/api/client/${client.client_id}`, client);
   }
 

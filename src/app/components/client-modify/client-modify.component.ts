@@ -1,6 +1,7 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { Client } from 'src/app/services/Models/client.model';
+import { Phone } from 'src/app/services/Models/phone.model';
 
 @Component({
   selector: 'app-client-modify',
@@ -15,19 +16,13 @@ export class ClientModifyComponent implements OnInit {
   @ViewChild(NgForm, { static: false })
   formRef!: NgForm;
 
-  constructor() { console.log("client: "+this.client?.client_id);};
+  constructor() {};
 
   get valid() {
-    
-    console.log("VAlid "+this.client?.first_name);
     return this.formRef.form.valid;
   }
 
   ngOnInit(): void {
-  }
-
-  test() {
-    console.log("test");
   }
 
 }

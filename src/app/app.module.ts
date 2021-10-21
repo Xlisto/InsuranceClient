@@ -10,6 +10,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PhoneModifyComponent } from './components/phone-modify/phone-modify.component';
 import { TestComponent } from './test/test.component';
 import { ClientModifyComponent } from './components/client-modify/client-modify.component';
+import { PageComponent } from './components/page/page.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { ClientModifyComponent } from './components/client-modify/client-modify.
     ModalComponent,
     PhoneModifyComponent,
     TestComponent,
-    ClientModifyComponent
+    ClientModifyComponent,
+    PageComponent
   ],
   imports: [
     BrowserModule,

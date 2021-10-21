@@ -73,7 +73,7 @@
     </div>
 
     <div class="row">
-        <div class="col-4">
+        <!--<div class="col-4">
             <div class="form-group" *ngIf="client.phones[0].phoneNumber != null">
                 <label for="phoneNumber">Telefon:</label>
                 <input minlength="9" required [(ngModel)]="client.phones[0].phoneNumber" type="text" class="form-control"
@@ -91,12 +91,12 @@
             </div>
         </div>
         <div class="col-4">
-            <div class="form-group" *ngIf="client.phones[2].phoneNumber != null">
+            <div class="form-group" *ngIf="client.phones[2] != null">
                 <label for="phoneNumber3">Telefon:</label>
                 <input [(ngModel)]="client.phones[2].phoneNumber" type="text" class="form-control"
                     id="phoneNumber" placeholder="Telefonní číslo" #phoneNumber3="ngModel" name="phoneNumber3" />
             </div> 
-        </div>
+        </div>-->
     </div>
 
 </form>

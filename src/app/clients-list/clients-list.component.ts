@@ -5,6 +5,9 @@ import { Client } from '../services/Models/client.model';
 import { Phone } from '../services/Models/phone.model';
 import { PhoneModifyComponent } from '../components/phone-modify/phone-modify.component';
 import { ClientModifyComponent } from '../components/client-modify/client-modify.component';
+import { PageComponent } from '../components/page/page.component';
+import { Page } from '../services/Models/page.model';
+import { HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-clients-list',
@@ -30,12 +33,17 @@ export class ClientsListComponent implements AfterViewInit {
   @ViewChild(ClientModifyComponent, { static: false })
   clientAddRef!: ClientModifyComponent;
 
+  @ViewChild(PageComponent)
+  pageComponent!: PageComponent;
+
+
   isModalAddPhoneClosed = true;
   isModalRemovePhoneClosed = true;
   isModalUpdatePhoneClosed = true;
   isModalAddClientClosed = true;
   isModalRemoveClientClosed = true;
   isModalUpdateClientClosed = true;
+  maxPages = 0;
 
   constructor(
     private readonly clientsService: ClientsService,
@@ -44,11 +52,32 @@ export class ClientsListComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
 
-    this.clientsService.getClients()
+    /*this.clientsService.getClients()
       .subscribe(
         (clients: Array<Client>) => { this.clients = clients; },
         (error) => console.log(error),
         () => { }
+      );*/
+    this.loadClients(this.pageComponent.getPage(), this.pageComponent.getSize());
+
+    
+  }
+
+  loadPageClients(page: Page) {
+    this.loadClients(page.page, page.size);
+  }
+
+  loadClients(page: number, size: number) {
+    /**this.clientsService.getPageClients(page, size)
+      .subscribe(
+        (clients: Array<Client>) => { this.clients = clients;},
+        (error) => console.log(error),
+        () => { }
+      );*/
+    this.clientsService.getPageClientsHeader(page, size)
+      .subscribe(
+        (data: HttpResponse<any>) => {this.clients = data.body; this.maxPages = Number(data.headers.get('pages'));},
+        (error) => console.log(error)
       );
   }
 
@@ -109,11 +138,6 @@ export class ClientsListComponent implements AfterViewInit {
         }
       );
     }
-
-    //console.log("body: "+body[0]!.phoneNumber);
-    console.log("phone2 " + this.phoneAddRef.valid);
-    console.log("phone2 " + this.phoneAddRef.phone?.phone_id);
-    //this.phoneAddRef.formRef.resetForm();
   }
 
   addClient() {
@@ -137,9 +161,9 @@ export class ClientsListComponent implements AfterViewInit {
 
   updateClient() {
     const body = this.clientAddRef.client;
-    console.log("select client: "+this.selectedClient?.client_id);
-    console.log("update client: "+body?.client_id);
-    console.log("update client: "+this.clientAddRef.valid);
+    console.log("select client: " + this.selectedClient?.client_id);
+    console.log("update client: " + body?.client_id);
+    console.log("update client: " + this.clientAddRef.valid);
     if (this.clientAddRef.valid && body != null) {
 
       this.clientsService.updateClient(body).subscribe(
@@ -169,8 +193,6 @@ export class ClientsListComponent implements AfterViewInit {
       (error) => console.log(error)
     );
   }
-
-
 
 }
 
