@@ -11,6 +11,7 @@ import { PhoneModifyComponent } from './components/phone-modify/phone-modify.com
 import { TestComponent } from './test/test.component';
 import { ClientModifyComponent } from './components/client-modify/client-modify.component';
 import { PageComponent } from './components/page/page.component';
+import { ClientFilterComponent } from './components/client-filter/client-filter.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { PageComponent } from './components/page/page.component';
     PhoneModifyComponent,
     TestComponent,
     ClientModifyComponent,
-    PageComponent
+    PageComponent,
+    ClientFilterComponent
   ],
   imports: [
     BrowserModule,

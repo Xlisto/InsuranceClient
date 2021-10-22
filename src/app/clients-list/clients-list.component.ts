@@ -8,6 +8,9 @@ import { ClientModifyComponent } from '../components/client-modify/client-modify
 import { PageComponent } from '../components/page/page.component';
 import { Page } from '../services/Models/page.model';
 import { HttpResponse } from '@angular/common/http';
+import { SessionsService } from '../services/sessions.service';
+import { ClientFilter } from '../services/Models/client-filter';
+import { ClientFilterComponent } from '../components/client-filter/client-filter.component';
 
 @Component({
   selector: 'app-clients-list',
@@ -27,6 +30,9 @@ export class ClientsListComponent implements AfterViewInit {
   selectedPhone: Phone | null = null;
   selectedClient: Client | null = null;
 
+  @ViewChild(ClientFilterComponent)
+  clientFilterRef!: ClientFilterComponent;
+
   @ViewChild(PhoneModifyComponent, { static: false })
   phoneAddRef!: PhoneModifyComponent;
 
@@ -37,6 +43,8 @@ export class ClientsListComponent implements AfterViewInit {
   pageComponent!: PageComponent;
 
 
+
+
   isModalAddPhoneClosed = true;
   isModalRemovePhoneClosed = true;
   isModalUpdatePhoneClosed = true;
@@ -44,6 +52,7 @@ export class ClientsListComponent implements AfterViewInit {
   isModalRemoveClientClosed = true;
   isModalUpdateClientClosed = true;
   maxPages = 0;
+  countClients = 0;
 
   constructor(
     private readonly clientsService: ClientsService,
@@ -58,9 +67,9 @@ export class ClientsListComponent implements AfterViewInit {
         (error) => console.log(error),
         () => { }
       );*/
-    this.loadClients(this.pageComponent.getPage(), this.pageComponent.getSize());
+    this.loadClients(this.pageComponent.getActualPage(), this.pageComponent.getSize());
 
-    
+
   }
 
   loadPageClients(page: Page) {
@@ -68,17 +77,25 @@ export class ClientsListComponent implements AfterViewInit {
   }
 
   loadClients(page: number, size: number) {
+    const clientFilter = this.clientFilterRef.clientFilter;
+    console.dir(this.clientFilterRef);
     /**this.clientsService.getPageClients(page, size)
       .subscribe(
         (clients: Array<Client>) => { this.clients = clients;},
         (error) => console.log(error),
         () => { }
       );*/
-    this.clientsService.getPageClientsHeader(page, size)
+    this.clientsService.getCountClients()
       .subscribe(
-        (data: HttpResponse<any>) => {this.clients = data.body; this.maxPages = Number(data.headers.get('pages'));},
+        (response) => this.countClients = response,
+        (error) => console.error
+      );
+    this.clientsService.getPageClientsHeader(page, size, clientFilter)
+      .subscribe(
+        (data: HttpResponse<any>) => { this.clients = data.body; this.maxPages = Number(data.headers.get('pages')); },
         (error) => console.log(error)
       );
+
   }
 
   addPhone() {
@@ -105,7 +122,7 @@ export class ClientsListComponent implements AfterViewInit {
   }
 
   removePhone(phone: Phone) {
-    this.clientsService.removePhone(phone.phone_id).subscribe(
+    this.clientsService.removePhone(phone.phoneId).subscribe(
       (response) => {
         this.router.onSameUrlNavigation = "reload";
         this.router.routeReuseStrategy.shouldReuseRoute = function () {
@@ -125,6 +142,8 @@ export class ClientsListComponent implements AfterViewInit {
     if (this.phoneAddRef.valid) {
       this.clientsService.updatePhone(body).subscribe(
         (response) => {
+          console.log("PAge " + this.pageComponent.actualPage);
+
           this.router.onSameUrlNavigation = 'reload';
           this.router.routeReuseStrategy.shouldReuseRoute = function () {
             return false;
@@ -160,11 +179,12 @@ export class ClientsListComponent implements AfterViewInit {
   }
 
   updateClient() {
+    if (this.clientAddRef.client?.registryNumber == null) {
+      this.clientAddRef.client!.registryNumber = "";
+    }
     const body = this.clientAddRef.client;
-    console.log("select client: " + this.selectedClient?.client_id);
-    console.log("update client: " + body?.client_id);
-    console.log("update client: " + this.clientAddRef.valid);
     if (this.clientAddRef.valid && body != null) {
+
 
       this.clientsService.updateClient(body).subscribe(
         (response) => {

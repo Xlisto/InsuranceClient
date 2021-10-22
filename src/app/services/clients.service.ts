@@ -1,6 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { ClientFilter } from './Models/client-filter';
 import { Client } from './Models/client.model';
 import { Phone } from './Models/phone.model';
 
@@ -20,10 +21,30 @@ export class ClientsService {
 
   getPageClients(page: number, size: number): Observable<Array<Client>> {
     return this.httpClient.get<Array<Client>>(`/api/pageclients?page=${page}&size=${size}`);
-  } 
+  }
 
-  getPageClientsHeader(page: number, size: number): Observable<any> {
-    return this.httpClient.get<Response>(`/api/pageclients?page=${page}&size=${size}`,{observe: 'response'});
+  getCountClients(): Observable<number> {
+    return this.httpClient.get<number>(`/api/countclients`);
+  }
+
+  getPageClientsHeader(page: number, size: number, clientFilter: ClientFilter): Observable<any> {
+    let params = new HttpParams();
+    if (page != null)
+      params = params.set("page", page);
+    if (size != null)
+      params = params.set("size", size);
+    for (const key in clientFilter) {
+      if (clientFilter.hasOwnProperty(key)) {
+        const value = clientFilter[key];
+        //console.log("value "+value+" "+value.toString().length);
+        if (value != null) {
+          if (value.toString().length)
+            params = params.set(key, value.toString());
+        }
+      }
+    }
+
+    return this.httpClient.get<Response>(`/api/pageclients`, { observe: 'response', params });
   }
 
   addClient(client: Client) {
@@ -31,12 +52,12 @@ export class ClientsService {
   }
 
   updateClient(client: Client) {
-    console.log("Client v servise" + client.client_id);
-    return this.httpClient.put(`/api/client/${client.client_id}`, client);
+    console.log("Client v servise" + client.clientId);
+    return this.httpClient.put(`/api/client/${client.clientId}`, client);
   }
 
   removeClient(client: Client) {
-    return this.httpClient.delete(`/api/client/${client.client_id}`);
+    return this.httpClient.delete(`/api/client/${client.clientId}`);
   }
 
   addPhone(phones: Array<Phone | null>, clientId: number) {
@@ -48,7 +69,7 @@ export class ClientsService {
   }
 
   updatePhone(phones: Phone | null) {
-    return this.httpClient.put(`/api/phone/${phones?.phone_id}`, phones);
+    return this.httpClient.put(`/api/phone/${phones?.phoneId}`, phones);
   }
 
 }

@@ -4,7 +4,9 @@
         <div class="col-2">
             <button class="btn btn-outline-primary" (click)="isModalAddClientClosed = false">
                 Nový klient
-            </button>
+            </button><br>
+            Počet klientů: {{countClients}}
+            <app-client-filter (onFilter)="loadClients(0,5)"></app-client-filter>
         </div>
         <div class="col-10">
             <div class="list-group rounded">
@@ -12,20 +14,20 @@
                     class="list-group-item list-group-item-action btn-primary mb-1 p-3 rounded">
                     <div class="row">
                         <div class="col-2">
-                            {{client.first_name}} <br>{{client.last_name}}
-                            <div class="btn-group-vertical mt-2">
+                            {{client.firstName}} <br>{{client.lastName}}<br>
+                            <div class="btn-group mt-2">
                                 <button class="btn btn-primary btn-sm"
                                     (click)="isModalUpdateClientClosed = false; selectedClient = client;">
-                                    Upravit klienta</button>
+                                    <img src="/assets/icon/edit_icon.png" class="icon"></button>
                                 <button class="btn btn-danger btn-sm"
                                     (click)="isModalRemoveClientClosed = false; selectedClient = client;">
-                                    Odstranit klienta</button>
+                                    <img src="/assets/icon/delete_icon.png" class="icon"></button>
                             </div>
 
                         </div>
                         <div class="col-3">
-                            {{client.street}} {{client.house_number}}<span *ngIf="client.registry_number">/
-                                {{client.registry_number}}</span><br>
+                            {{client.street}} {{client.houseNumber}}<span *ngIf="client.registryNumber">/
+                                {{client.registryNumber}}</span><br>
                             {{client.zip}} {{client.city}}
                         </div>
                         <div class="col-5 mt-1">
@@ -43,9 +45,9 @@
                                     </button>
                                 </div>
                             </div>
-                            <button *ngIf="client.phones.length < 3 && client.client_id != null"
+                            <button *ngIf="client.phones.length < 3 && client.clientId != null"
                                 class="btn btn-secondary btn-sm"
-                                (click)="isModalAddPhoneClosed = false; clientId = client.client_id;">
+                                (click)="isModalAddPhoneClosed = false; clientId = client.clientId;">
                                 Přidat číslo
                             </button>
                         </div>
@@ -96,7 +98,7 @@
 
 <app-modal *ngIf="selectedClient !== null" header="Odstranit klienta" [isClosed]="isModalRemoveClientClosed"
     (crossClicked)="isModalRemoveClientClosed = true">
-    Odstranit clienta: <strong>{{selectedClient.first_name}} {{selectedClient.last_name}}</strong> se všemi údaji?
+    Odstranit clienta: <strong>{{selectedClient.firstName}} {{selectedClient.lastName}}</strong> se všemi údaji?
     <button footer type="button" class="btn btn-primary" (click)="removeClient(selectedClient)">Odstranit
         klienta</button>
     <button footer type="button" class="btn btn-secondary" (click)="isModalRemoveClientClosed = true">Zavřít</button>

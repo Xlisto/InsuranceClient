@@ -1,18 +1,18 @@
 <form *ngIf="client !== null" #formRef="ngForm">
     <div class="form-group">
-        <label for="first_name">Jméno:</label>
-        <input minlength="3" required [(ngModel)]="client.first_name" type="text" class="form-control" id="first_name"
-            placeholder="Jméno" #first_name="ngModel" name="first_name" />
-        <small *ngIf="first_name.invalid && first_name.touched" class="text-danger">
+        <label for="firstName">Jméno:</label>
+        <input minlength="3" required [(ngModel)]="client.firstName" type="text" class="form-control" id="firstName"
+            placeholder="Jméno" #firstName="ngModel" name="firstName" />
+        <small *ngIf="firstName.invalid && firstName.touched" class="text-danger">
             Napište jméno alespoň 3 znaky dlouhé
         </small>
     </div>
 
     <div class="form-group">
-        <label for="last_name">Příjmení:</label>
-        <input minlength="3" required [(ngModel)]="client.last_name" type="text" class="form-control" id="last_name"
-            placeholder="Příjmení" #last_name="ngModel" name="last_name" />
-        <small *ngIf="last_name.invalid && last_name.touched" class="text-danger">
+        <label for="lastName">Příjmení:</label>
+        <input minlength="3" required [(ngModel)]="client.lastName" type="text" class="form-control" id="lastName"
+            placeholder="Příjmení" #lastName="ngModel" name="lastName" />
+        <small *ngIf="lastName.invalid && lastName.touched" class="text-danger">
             Napište jméno alespoň 3 znaky dlouhé
         </small>
     </div>
@@ -30,19 +30,19 @@
         </div>
         <div class="col-3">
             <div class="form-group">
-                <label for="house_number">Číslo popisné:</label>
-                <input minlength="1" required [(ngModel)]="client.house_number" type="number" class="form-control"
-                    id="house_number" placeholder="Číslo popisné" #house_number="ngModel" name="house_number" />
-                <small *ngIf="house_number.invalid && house_number.touched" class="text-danger">
+                <label for="houseNumber">Číslo popisné:</label>
+                <input minlength="1" required [(ngModel)]="client.houseNumber" type="number" class="form-control"
+                    id="houseNumber" placeholder="Číslo popisné" #houseNumber="ngModel" name="houseNumber" />
+                <small *ngIf="houseNumber.invalid && houseNumber.touched" class="text-danger">
                     Napište číslo popisné
                 </small>
             </div>
         </div>
         <div class="col-3">
             <div class="form-group">
-                <label for="registry_number">Číslo orientační:</label>
-                <input  [(ngModel)]="client.registry_number" type="number" class="form-control"
-                    id="registry_number" placeholder="Číslo orientační" #registry_number="ngModel" name="registry_number" />
+                <label for="registryNumber">Číslo orientační:</label>
+                <input  [(ngModel)]="client.registryNumber" type="number" class="form-control"
+                    id="registryNumber" placeholder="Číslo orientační" #registryNumber="ngModel" name="registryNumber" />
             </div>
         </div>
     </div>
@@ -73,8 +73,8 @@
     </div>
 
     <div class="row">
-        <!--<div class="col-4">
-            <div class="form-group" *ngIf="client.phones[0].phoneNumber != null">
+        <div class="col-4">
+            <div class="form-group" *ngIf="client.phones[0] != null">
                 <label for="phoneNumber">Telefon:</label>
                 <input minlength="9" required [(ngModel)]="client.phones[0].phoneNumber" type="text" class="form-control"
                     id="phoneNumber" placeholder="Telefonní číslo" #phoneNumber1="ngModel" name="phoneNumber1" />
@@ -84,7 +84,7 @@
             </div>
         </div>
         <div class="col-4">
-            <div class="form-group"*ngIf="client.phones[1].phoneNumber != null">
+            <div class="form-group"*ngIf="client.phones[1] != null">
                 <label for="phoneNumber">Telefon:</label>
                 <input [(ngModel)]="client.phones[1].phoneNumber" type="text" class="form-control"
                     id="phoneNumber" placeholder="Telefonní číslo" #phoneNumber2="ngModel" name="phoneNumber2" />
@@ -96,7 +96,7 @@
                 <input [(ngModel)]="client.phones[2].phoneNumber" type="text" class="form-control"
                     id="phoneNumber" placeholder="Telefonní číslo" #phoneNumber3="ngModel" name="phoneNumber3" />
             </div> 
-        </div>-->
+        </div>
     </div>
 
 </form>

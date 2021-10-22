@@ -1,0 +1,19 @@
+<form #filterFormRef="ngForm">
+    <div class="form-group">
+        <label for="firstNamefilter">Jméno</label>
+        <input [(ngModel)]="clientFilter.firstName" id="clinetFirstNameFilter" name="firstName" type="text" class="form-control"
+            placeholder="Jméno">
+    </div>
+
+    <div class="form-group">
+        <label for="lastNamefilter">Příjmení</label>
+        <input [(ngModel)]="clientFilter.lastName" id="clinetlastNameFilter" name="lastName" type="text" class="form-control"
+            placeholder="Příjmení">
+    </div>
+
+    <button type="button" class="btn btn-outline-primary" (click)="onFilter.emit()">
+Filtrovat
+    </button>
+
+
+</form>

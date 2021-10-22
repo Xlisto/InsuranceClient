@@ -2,15 +2,15 @@ import { Phone } from "./phone.model";
 
 export class Client {
 
-    public client_id: number | null = null;
+    public clientId: number | null = null;
 
     constructor(
 
-        public first_name: string,
-        public last_name: string,
+        public firstName: string,
+        public lastName: string,
         public street: string,
-        public house_number: string,
-        public registry_number: string,
+        public houseNumber: string,
+        public registryNumber: string,
         public zip: string,
         public city: string,
         public phones: Array<any>
