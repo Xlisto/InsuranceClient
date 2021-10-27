@@ -17,14 +17,23 @@
         </small>
     </div>
 
+    <div class="form-group">
+        <label for="pin">Rodné číslo:</label>
+        <input minlength="11" required [(ngModel)]="client.pin" type="text" class="form-control" id="pin"
+            placeholder="Rodné číslo" #pin="ngModel" name="pin" />
+        <small *ngIf="pin.invalid && pin.touched" class="text-danger">
+            Napište rodné číslo s lomítkem
+        </small>
+    </div>
+
     <div class="row">
         <div class="col-6">
             <div class="form-group">
                 <label for="street">Ulice:</label>
-                <input minlength="5" required [(ngModel)]="client.street" type="text" class="form-control" id="street"
+                <input minlength="4" required [(ngModel)]="client.street" type="text" class="form-control" id="street"
                     placeholder="Ulice" #street="ngModel" name="street" />
                 <small *ngIf="street.invalid && street.touched" class="text-danger">
-                    Napište jméno ulice dlouhé alespoň 5 znaků
+                    Napište jméno ulice dlouhé alespoň 4 znaky
                 </small>
             </div>
         </div>

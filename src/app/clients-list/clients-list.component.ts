@@ -11,6 +11,7 @@ import { HttpResponse } from '@angular/common/http';
 import { SessionsService } from '../services/sessions.service';
 import { ClientFilter } from '../services/Models/client-filter';
 import { ClientFilterComponent } from '../components/client-filter/client-filter.component';
+import { ClientDetailComponent } from '../components/client-detail/client-detail.component';
 
 @Component({
   selector: 'app-clients-list',
@@ -39,11 +40,14 @@ export class ClientsListComponent implements AfterViewInit {
   @ViewChild(ClientModifyComponent, { static: false })
   clientAddRef!: ClientModifyComponent;
 
+  @ViewChild(ClientDetailComponent, {static: false})
+  clientDetailAddref!: ClientDetailComponent;
+
   @ViewChild(PageComponent)
   pageComponent!: PageComponent;
 
 
-
+  
 
   isModalAddPhoneClosed = true;
   isModalRemovePhoneClosed = true;
@@ -51,8 +55,11 @@ export class ClientsListComponent implements AfterViewInit {
   isModalAddClientClosed = true;
   isModalRemoveClientClosed = true;
   isModalUpdateClientClosed = true;
+  isModalDetailClientClosed = true;
+  isModalInsuranceTypeClosed = true;
   maxPages = 0;
   countClients = 0;
+  countInsurances = 0;
 
   constructor(
     private readonly clientsService: ClientsService,
@@ -69,22 +76,31 @@ export class ClientsListComponent implements AfterViewInit {
       );*/
     this.loadClients(this.pageComponent.getActualPage(), this.pageComponent.getSize());
 
-
   }
 
   loadPageClients(page: Page) {
     this.loadClients(page.page, page.size);
   }
 
+  loadFirstPage() {
+    console.log("load first")
+    this.pageComponent.setActualPage(0);
+    this.loadClients(0,5);
+  }
+
   loadClients(page: number, size: number) {
     const clientFilter = this.clientFilterRef.clientFilter;
-    console.dir(this.clientFilterRef);
     /**this.clientsService.getPageClients(page, size)
       .subscribe(
         (clients: Array<Client>) => { this.clients = clients;},
         (error) => console.log(error),
         () => { }
       );*/
+      this.clientsService.getCountInsurances()
+      .subscribe(
+        (response) => this.countInsurances = response,
+        (error) => console.error
+      ); 
     this.clientsService.getCountClients()
       .subscribe(
         (response) => this.countClients = response,
@@ -213,6 +229,5 @@ export class ClientsListComponent implements AfterViewInit {
       (error) => console.log(error)
     );
   }
-
 }
 

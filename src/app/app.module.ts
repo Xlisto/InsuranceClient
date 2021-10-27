@@ -12,6 +12,11 @@ import { TestComponent } from './test/test.component';
 import { ClientModifyComponent } from './components/client-modify/client-modify.component';
 import { PageComponent } from './components/page/page.component';
 import { ClientFilterComponent } from './components/client-filter/client-filter.component';
+import { InsuranceListComponent } from './insurance-list/insurance-list.component';
+import { InsuranceCarModifyComponent } from './components/insurance-car-modify/insurance-car-modify.component';
+import { ClientDetailComponent } from './components/client-detail/client-detail.component';
+import { InsuranceTypeListComponent } from './components/insurance-type-list/insurance-type-list.component';
+import { InsuranceTypeModifyComponent } from './components/insurance-type-modify/insurance-type-modify.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +27,12 @@ import { ClientFilterComponent } from './components/client-filter/client-filter.
     TestComponent,
     ClientModifyComponent,
     PageComponent,
-    ClientFilterComponent
+    ClientFilterComponent,
+    InsuranceListComponent,
+    InsuranceCarModifyComponent,
+    ClientDetailComponent,
+    InsuranceTypeListComponent,
+    InsuranceTypeModifyComponent
   ],
   imports: [
     BrowserModule,

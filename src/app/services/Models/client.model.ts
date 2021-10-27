@@ -8,6 +8,7 @@ export class Client {
 
         public firstName: string,
         public lastName: string,
+        public pin: string,
         public street: string,
         public houseNumber: string,
         public registryNumber: string,
@@ -17,7 +18,7 @@ export class Client {
     ) { }
 
     static createEmpty() {
-        let client = new Client("", "", "", "", "", "", "", []);
+        let client = new Client("", "","", "", "", "", "", "", []);
         for (let i = 0; i < 3; i++) {
             client.phones.push(new Phone());
         }

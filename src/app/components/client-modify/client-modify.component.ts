@@ -1,7 +1,6 @@
-import { ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { Client } from 'src/app/services/Models/client.model';
-import { Phone } from 'src/app/services/Models/phone.model';
 
 @Component({
   selector: 'app-client-modify',

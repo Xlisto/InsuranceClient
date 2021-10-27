@@ -1,18 +1,24 @@
 <form #filterFormRef="ngForm">
-    <div class="form-group">
+    <div class="form-group mt-3">
         <label for="firstNamefilter">Jméno</label>
-        <input [(ngModel)]="clientFilter.firstName" id="clinetFirstNameFilter" name="firstName" type="text" class="form-control"
-            placeholder="Jméno">
+        <input [(ngModel)]="clientFilter.firstName" id="clinetFirstNameFilter" name="firstName" type="text"
+            class="form-control" placeholder="Jméno">
     </div>
 
     <div class="form-group">
         <label for="lastNamefilter">Příjmení</label>
-        <input [(ngModel)]="clientFilter.lastName" id="clinetlastNameFilter" name="lastName" type="text" class="form-control"
-            placeholder="Příjmení">
+        <input [(ngModel)]="clientFilter.lastName" id="clinetlastNameFilter" name="lastName" type="text"
+            class="form-control" placeholder="Příjmení">
     </div>
 
-    <button type="button" class="btn btn-outline-primary" (click)="onFilter.emit()">
-Filtrovat
+    <div class="form-group">
+        <label for="pinfilter">Rodné číslo</label>
+        <input [(ngModel)]="clientFilter.pin" id="clinetPinFilter" name="pin" type="text"
+            class="form-control" placeholder="Rodné číslo">
+    </div>
+
+    <button type="button" class="btn btn-outline-primary mt-1" (click)="onFilter.emit()">
+        Filtrovat
     </button>
 
 

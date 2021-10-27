@@ -1,0 +1,28 @@
+<div class="container">
+    <div class="row">
+        <p class="col-6" *ngIf="client != null">
+            {{client.firstName}} {{client.lastName}}<br>
+            {{client.street}} {{client.houseNumber}}<span *ngIf="client.registryNumber.length>0">,
+                {{client.registryNumber}}</span><br>
+            {{client.zip}} {{client.city}}
+
+        </p>
+        <p class="col-6">
+            Uzavřených ručení: {{insuranceCars.length}}
+        </p>
+    </div>
+    <div class="row">
+        <div class="col border">Číslo poj.</div>
+        <div class="col border">Registrační značka</div>
+        <div class="col border">Tovární značka</div>
+        <div class="col border">Obejm válců</div>
+        <div class="col border">Pojitné</div> 
+    </div>
+    <div class="row " *ngFor="let insuranceCar of insuranceCars">
+        <div class="col border">{{insuranceCar.id}}</div>
+        <div class="col border">{{insuranceCar.registrationMark}}</div>
+        <div class="col border">{{insuranceCar.brand}}</div>
+        <div class="col border">{{insuranceCar.enginePower}} ccm<sup>3</sup></div>
+        <div class="col border">{{insuranceCar.cost}} kč</div> 
+    </div>
+</div>

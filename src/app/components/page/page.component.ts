@@ -55,13 +55,14 @@ export class PageComponent implements OnInit {
 
   private getPage() {
     let page = this.sessionService.loadPage();
-    console.log("Size " + page.size);
     this.actualPage = page.page;
     if (page.page > 0)
       this.pageSize = page.size;
   }
 
   public getActualPage() { return this.actualPage; }
+
+  public setActualPage(page: number) { this.actualPage = page; this.setPage(); }
 
   public getSize() { return this.pageSize; }
 }
