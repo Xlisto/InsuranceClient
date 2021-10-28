@@ -39,7 +39,7 @@
         </div>
         <div class="col-3">
             <div class="form-group">
-                <label for="houseNumber">Číslo popisné:</label>
+                <label for="houseNumber" id="labelHouseNumber">Č.p.:</label>
                 <input minlength="1" required [(ngModel)]="client.houseNumber" type="number" class="form-control"
                     id="houseNumber" placeholder="Číslo popisné" #houseNumber="ngModel" name="houseNumber" />
                 <small *ngIf="houseNumber.invalid && houseNumber.touched" class="text-danger">
@@ -49,9 +49,9 @@
         </div>
         <div class="col-3">
             <div class="form-group">
-                <label for="registryNumber">Číslo orientační:</label>
-                <input  [(ngModel)]="client.registryNumber" type="number" class="form-control"
-                    id="registryNumber" placeholder="Číslo orientační" #registryNumber="ngModel" name="registryNumber" />
+                <label for="registryNumber" id="labelRegistryNumber">Č. o.:</label>
+                <input [(ngModel)]="client.registryNumber" type="number" class="form-control" id="registryNumber"
+                    placeholder="Číslo orientační" #registryNumber="ngModel" name="registryNumber" />
             </div>
         </div>
     </div>
@@ -61,7 +61,7 @@
             <div class="form-group">
                 <label for="zip">PSČ</label>
                 <input minlength="5" required [(ngModel)]="client.zip" type="text" class="form-control" id="zip"
-                    placeholder="PSČ" #zip="ngModel" name="zip" (test)="false"/>
+                    placeholder="PSČ" #zip="ngModel" name="zip" (test)="false" />
                 <small *ngIf="zip.invalid && zip.touched" class="text-danger">
                     PSČ je pět čísel
                 </small>
@@ -85,26 +85,27 @@
         <div class="col-4">
             <div class="form-group" *ngIf="client.phones[0] != null">
                 <label for="phoneNumber">Telefon:</label>
-                <input minlength="9" required [(ngModel)]="client.phones[0].phoneNumber" type="text" class="form-control"
-                    id="phoneNumber" placeholder="Telefonní číslo" #phoneNumber1="ngModel" name="phoneNumber1" />
+                <input minlength="9" required [(ngModel)]="client.phones[0].phoneNumber" type="text"
+                    class="form-control" id="phoneNumber" placeholder="Telefonní číslo" #phoneNumber1="ngModel"
+                    name="phoneNumber1" />
                 <small *ngIf="phoneNumber1.invalid && phoneNumber1.touched" class="text-danger">
-                    Zadejte telefonní celé číslo 
+                    Zadejte telefonní celé číslo
                 </small>
             </div>
         </div>
         <div class="col-4">
-            <div class="form-group"*ngIf="client.phones[1] != null">
+            <div class="form-group" *ngIf="client.phones[1] != null">
                 <label for="phoneNumber">Telefon:</label>
-                <input [(ngModel)]="client.phones[1].phoneNumber" type="text" class="form-control"
-                    id="phoneNumber" placeholder="Telefonní číslo" #phoneNumber2="ngModel" name="phoneNumber2" />
+                <input [(ngModel)]="client.phones[1].phoneNumber" type="text" class="form-control" id="phoneNumber"
+                    placeholder="Telefonní číslo" #phoneNumber2="ngModel" name="phoneNumber2" />
             </div>
         </div>
         <div class="col-4">
             <div class="form-group" *ngIf="client.phones[2] != null">
                 <label for="phoneNumber3">Telefon:</label>
-                <input [(ngModel)]="client.phones[2].phoneNumber" type="text" class="form-control"
-                    id="phoneNumber" placeholder="Telefonní číslo" #phoneNumber3="ngModel" name="phoneNumber3" />
-            </div> 
+                <input [(ngModel)]="client.phones[2].phoneNumber" type="text" class="form-control" id="phoneNumber"
+                    placeholder="Telefonní číslo" #phoneNumber3="ngModel" name="phoneNumber3" />
+            </div>
         </div>
     </div>
 

@@ -18,7 +18,7 @@ export class Client {
     ) { }
 
     static createEmpty() {
-        let client = new Client("", "","", "", "", "", "", "", []);
+        let client = new Client("", "", "", "", "", "", "", "", []);
         for (let i = 0; i < 3; i++) {
             client.phones.push(new Phone());
         }

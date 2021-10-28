@@ -1,9 +1,8 @@
-import { HttpResponse } from '@angular/common/http';
 import { Component, AfterViewInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ClientsListComponent } from '../clients-list/clients-list.component';
 import { InsuranceCarModifyComponent } from '../components/insurance-car-modify/insurance-car-modify.component';
 import { ClientsService } from '../services/clients.service';
+import { InsuranceCarService } from '../services/insurance-car.service';
 import { Client } from '../services/Models/client.model';
 import { InsuranceCar } from '../services/Models/insurance-car.model';
 
@@ -28,6 +27,7 @@ export class InsuranceListComponent implements AfterViewInit {
 
   constructor(
     private readonly clientsService: ClientsService,
+    private readonly insuranceCarService: InsuranceCarService,
     private router: Router, private activateRoute: ActivatedRoute) { }
 
   ngAfterViewInit(): void {
@@ -38,12 +38,12 @@ export class InsuranceListComponent implements AfterViewInit {
         (error) => console.log(error)
       );
 
-    this.clientsService.getInsurancesCar(this.clientId)
+    this.insuranceCarService.getInsurancesCar(this.clientId)
       .subscribe(
         (response: Array<InsuranceCar>) => {
           this.insurancesCars = response;
           for (let insuranceCar of this.insurancesCars) {
-            this.clientsService.getInsurancePrice(insuranceCar)
+            this.insuranceCarService.getInsurancePrice(insuranceCar)
               .subscribe(
                 (response) => { insuranceCar.cost = response.cost },
                 (error) => console.log(error)
@@ -58,7 +58,7 @@ export class InsuranceListComponent implements AfterViewInit {
     const body = this.insuranceCarReff.insuranceCar;
 
     if (body != null)
-      this.clientsService.addInsuranceCar(body)
+      this.insuranceCarService.addInsuranceCar(body)
         .subscribe(
           (response) => {
             this.router.onSameUrlNavigation = 'reload';
@@ -77,7 +77,7 @@ export class InsuranceListComponent implements AfterViewInit {
     const body = this.insuranceCarReff.insuranceCar;
 
     if (body != null)
-      this.clientsService.editInsuranceCar(body)
+      this.insuranceCarService.editInsuranceCar(body)
         .subscribe(
           (response) => {
             this.router.onSameUrlNavigation = 'reload';
@@ -94,7 +94,7 @@ export class InsuranceListComponent implements AfterViewInit {
 
   removeInsurance() {
     if (this.selectedInsurance != null)
-      this.clientsService.removeInsuranceCar(this.selectedInsurance)
+      this.insuranceCarService.removeInsuranceCar(this.selectedInsurance)
         .subscribe(
           (response) => {
             this.router.onSameUrlNavigation = 'reload';
@@ -108,7 +108,7 @@ export class InsuranceListComponent implements AfterViewInit {
         );
   }
 
-  back():void {
+  back(): void {
     this.router.navigate(["/clients-list"]);
   }
 

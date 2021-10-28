@@ -1,11 +1,11 @@
 <div class="row mt-2">
-    <div class="col text-center">
+    <div class="col-md-12 text-center">
         <div class="btn-group">
-            <button type="button" (click)="firstPage()" class="btn btn-primary">První</button>
-            <button type="button" (click)="previousPage()" class="btn btn-primary">Předchozí</button>
+            <button type="button" (click)="firstPage()" class="btn btn-primary" id="first">&lt;&lt;</button>
+            <button type="button" (click)="previousPage()" class="btn btn-primary" id="previous">&lt;</button>
             <span class="btn btn-primary">{{getActualPage()+1}}</span>
-            <button type="button" (click)="nextPage()" class="btn btn-primary">Další</button>
-            <button type="button" (click)="lastPage()" class="btn btn-primary">Poslední</button>
+            <button type="button" (click)="nextPage()" class="btn btn-primary" id="next">&gt;</button>
+            <button type="button" (click)="lastPage()" class="btn btn-primary" id="last">&gt;&gt;</button>
         </div>
     </div>
 </div>

@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { PageComponent } from '../components/page/page.component';
 import { Page } from './Models/page.model';
 
 @Injectable({
@@ -18,7 +17,7 @@ export class SessionsService {
     let page = new Page(
       Number(sessionStorage.getItem('actualPage')),
       Number(sessionStorage.getItem('sizePage'))
-      );
+    );
 
     return page;
   }

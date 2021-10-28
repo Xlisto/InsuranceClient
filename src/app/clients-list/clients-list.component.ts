@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input, OnInit, ViewChild, ViewChildren } from '@angular/core';
+import { AfterViewInit, Component, Input, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { ClientsService } from '../services/clients.service';
 import { Client } from '../services/Models/client.model';
@@ -8,10 +8,9 @@ import { ClientModifyComponent } from '../components/client-modify/client-modify
 import { PageComponent } from '../components/page/page.component';
 import { Page } from '../services/Models/page.model';
 import { HttpResponse } from '@angular/common/http';
-import { SessionsService } from '../services/sessions.service';
-import { ClientFilter } from '../services/Models/client-filter';
 import { ClientFilterComponent } from '../components/client-filter/client-filter.component';
 import { ClientDetailComponent } from '../components/client-detail/client-detail.component';
+import { InsuranceCarService } from '../services/insurance-car.service';
 
 @Component({
   selector: 'app-clients-list',
@@ -40,14 +39,14 @@ export class ClientsListComponent implements AfterViewInit {
   @ViewChild(ClientModifyComponent, { static: false })
   clientAddRef!: ClientModifyComponent;
 
-  @ViewChild(ClientDetailComponent, {static: false})
+  @ViewChild(ClientDetailComponent, { static: false })
   clientDetailAddref!: ClientDetailComponent;
 
   @ViewChild(PageComponent)
   pageComponent!: PageComponent;
 
 
-  
+
 
   isModalAddPhoneClosed = true;
   isModalRemovePhoneClosed = true;
@@ -63,19 +62,12 @@ export class ClientsListComponent implements AfterViewInit {
 
   constructor(
     private readonly clientsService: ClientsService,
+    private readonly insuranceCarService: InsuranceCarService,
     private router: Router
   ) { }
 
   ngAfterViewInit(): void {
-
-    /*this.clientsService.getClients()
-      .subscribe(
-        (clients: Array<Client>) => { this.clients = clients; },
-        (error) => console.log(error),
-        () => { }
-      );*/
     this.loadClients(this.pageComponent.getActualPage(), this.pageComponent.getSize());
-
   }
 
   loadPageClients(page: Page) {
@@ -85,7 +77,7 @@ export class ClientsListComponent implements AfterViewInit {
   loadFirstPage() {
     console.log("load first")
     this.pageComponent.setActualPage(0);
-    this.loadClients(0,5);
+    this.loadClients(0, 5);
   }
 
   loadClients(page: number, size: number) {
@@ -96,11 +88,11 @@ export class ClientsListComponent implements AfterViewInit {
         (error) => console.log(error),
         () => { }
       );*/
-      this.clientsService.getCountInsurances()
+    this.insuranceCarService.getCountInsurances()
       .subscribe(
         (response) => this.countInsurances = response,
         (error) => console.error
-      ); 
+      );
     this.clientsService.getCountClients()
       .subscribe(
         (response) => this.countClients = response,

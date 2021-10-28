@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { ClientsService } from 'src/app/services/clients.service';
+import { InsuranceCarService } from 'src/app/services/insurance-car.service';
 import { InsuranceType } from 'src/app/services/Models/insurance-type.model';
 import { InsuranceTypeModifyComponent } from '../insurance-type-modify/insurance-type-modify.component';
 
@@ -22,6 +23,7 @@ export class InsuranceTypeListComponent implements AfterViewInit {
 
   constructor(
     private readonly clientsService: ClientsService,
+    private readonly insuranceCarService: InsuranceCarService,
     private router: Router) { }
 
   ngAfterViewInit(): void {
@@ -29,7 +31,7 @@ export class InsuranceTypeListComponent implements AfterViewInit {
   }
 
   loadInsuranceTypes() {
-    this.clientsService.getInsuranceType()
+    this.insuranceCarService.getInsuranceType()
       .subscribe(
         (response) => {
           this.insuranceTypes = response;
@@ -46,7 +48,7 @@ export class InsuranceTypeListComponent implements AfterViewInit {
     const body = this.insuranceTypeReff.insuranceType;
 
     if (this.insuranceTypeReff.valid && body) {
-      this.clientsService.addInsuranceType(body).subscribe(
+      this.insuranceCarService.addInsuranceType(body).subscribe(
         (response) => {
           this.router.onSameUrlNavigation = 'reload';
           this.router.routeReuseStrategy.shouldReuseRoute = function () {
@@ -65,7 +67,7 @@ export class InsuranceTypeListComponent implements AfterViewInit {
     const body = this.insuranceTypeReff.insuranceType;
 
     if (this.insuranceTypeReff.valid && body) {
-      this.clientsService.editInsuranceType(body).subscribe(
+      this.insuranceCarService.editInsuranceType(body).subscribe(
         (response) => {
           this.router.onSameUrlNavigation = 'reload';
           this.router.routeReuseStrategy.shouldReuseRoute = function () {
@@ -82,7 +84,7 @@ export class InsuranceTypeListComponent implements AfterViewInit {
 
   removeInsuranceType() {
     if (this.selectedInsuranceType) {
-      this.clientsService.removeInsuranceType(this.selectedInsuranceType).subscribe(
+      this.insuranceCarService.removeInsuranceType(this.selectedInsuranceType).subscribe(
         (response) => {
           this.router.onSameUrlNavigation = 'reload';
           this.router.routeReuseStrategy.shouldReuseRoute = function () {

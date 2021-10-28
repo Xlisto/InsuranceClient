@@ -1,10 +1,19 @@
 <div class="container">
-    <div class="row" *ngFor="let insuranceType of insuranceTypes">
-        <div class="col border">Od {{insuranceType.enginePower}} ccm<sup>3</sup></div>
-        <div class="col border"><span *ngIf="insuranceType.untilEnginePower != null">do
+    <div class="row text-center">
+        <div class="col-3 border"><strong>OD</strong></div>
+        <div class="col-3 border"><strong>DO</strong></div>
+        <div class="col-3 border"><strong>CENA</strong></div>
+        <div class="col-3 border"><strong></strong></div>
+    </div>
+    <div class="row text-end" *ngFor="let insuranceType of insuranceTypes">
+        <div class="col-3 border">{{insuranceType.enginePower}} ccm<sup>3</sup></div>
+
+        <div class="col-3 border"><span *ngIf="insuranceType.untilEnginePower != null">
                 {{insuranceType.untilEnginePower}} ccm<sup>3</sup></span></div>
-        <div class="col border">cena: {{insuranceType.cost}} kč</div>
-        <div class="col border">
+
+        <div class="col-3 border">{{insuranceType.cost}} kč</div>
+
+        <div class="col-3 border text-center">
             <div class="btn-group">
                 <button class="btn btn-outline-primary"
                     (click)="isModalEditInsuranceTypeClosed=false; selectedInsuranceType = insuranceType;"><img
@@ -15,7 +24,7 @@
             </div>
         </div>
     </div>
-    <button class="btn btn-primary" (click)="isModalAddInsuranceTypeClosed = false">Nová kategorie</button>
+    <button class="btn btn-primary mt-2" (click)="isModalAddInsuranceTypeClosed = false">Nová kategorie</button>
 </div>
 
 <app-modal header="Nová kategorie ovinného ručení" [isClosed]="isModalAddInsuranceTypeClosed"
@@ -29,7 +38,8 @@
 
 <app-modal header="Úprava kategorie povinného ručení" [isClosed]="isModalEditInsuranceTypeClosed"
     (crossClicked)="isModalEditInsuranceTypeClosed = true; loadInsuranceTypes();">
-    <app-insurance-type-modify *ngIf="!isModalEditInsuranceTypeClosed" [insuranceType]="selectedInsuranceType"></app-insurance-type-modify>
+    <app-insurance-type-modify *ngIf="!isModalEditInsuranceTypeClosed" [insuranceType]="selectedInsuranceType">
+    </app-insurance-type-modify>
     <button footer type="button" class="btn btn-primary"
         (click)=" isModalEditInsuranceTypeClosed = true; editInsuranceType();">Uložit</button>
     <button footer type="button" class="btn btn-secondary"
@@ -40,6 +50,6 @@
     (crossClicked)="isModalRemoveInsuranceTypeClosed = true">
     <button footer type="button" class="btn btn-danger"
         (click)=" isModalRemoveInsuranceTypeClosed = true; removeInsuranceType()">Odebrat</button>
-        <button footer type="button" class="btn btn-secondary"
+    <button footer type="button" class="btn btn-secondary"
         (click)=" isModalRemoveInsuranceTypeClosed = true;">Zavřít</button>
 </app-modal>

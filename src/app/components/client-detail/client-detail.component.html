@@ -11,18 +11,66 @@
             Uzavřených ručení: {{insuranceCars.length}}
         </p>
     </div>
-    <div class="row">
-        <div class="col border">Číslo poj.</div>
-        <div class="col border">Registrační značka</div>
-        <div class="col border">Tovární značka</div>
-        <div class="col border">Obejm válců</div>
-        <div class="col border">Pojitné</div> 
+    <div *ngFor="let insuranceCar of insuranceCars" class="border m-1 columns-view">
+        <div class="row">
+            <div class="col-6">
+                <strong>Číslo poj.</strong>
+            </div>
+            <div class="col-6">
+                {{insuranceCar.id}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <strong>Registrační značka</strong>
+            </div>
+            <div class="col-6">
+                {{insuranceCar.registrationMark}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <strong>Tovární značka</strong>
+            </div>
+            <div class="col-6">
+                {{insuranceCar.brand}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <strong>Obejm válců</strong>
+            </div>
+            <div class="col-6">
+                {{insuranceCar.enginePower}} ccm<sup>3</sup>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <strong>Pojistné</strong>
+            </div>
+            <div class="col-6">
+                {{insuranceCar.cost}} kč
+            </div>
+        </div>
     </div>
-    <div class="row " *ngFor="let insuranceCar of insuranceCars">
-        <div class="col border">{{insuranceCar.id}}</div>
-        <div class="col border">{{insuranceCar.registrationMark}}</div>
-        <div class="col border">{{insuranceCar.brand}}</div>
-        <div class="col border">{{insuranceCar.enginePower}} ccm<sup>3</sup></div>
-        <div class="col border">{{insuranceCar.cost}} kč</div> 
-    </div>
+   
+    
+    <table class="table">
+        <tr>
+            <th>Číslo. poj</th>
+            <th>Registrační značka</th>
+            <th>Tovární značka</th>
+            <th>Objem válců</th>
+            <th>Pojistné</th>
+        </tr>
+
+        <tr *ngFor="let insuranceCar of insuranceCars">
+            <td>{{insuranceCar.id}}</td>
+            <td>{{insuranceCar.registrationMark}}</td>
+            <td>{{insuranceCar.brand}}</td>
+            <td>{{insuranceCar.enginePower}} ccm<sup>3</sup></td>
+            <td>{{insuranceCar.cost}} kč</td>
+        </tr>
+
+    </table>
 </div>

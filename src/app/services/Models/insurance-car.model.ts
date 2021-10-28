@@ -10,6 +10,6 @@ export class InsuranceCar {
         public clientId: number) { }
 
     static createEmpty() {
-        return new InsuranceCar(new Date(),'','',0,0);
-    }     
+        return new InsuranceCar(new Date(), '', '', 0, 0);
+    }
 }

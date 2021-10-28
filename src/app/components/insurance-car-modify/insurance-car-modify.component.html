@@ -1,9 +1,9 @@
-<form  #formRef="ngForm" *ngIf="insuranceCar !=null">
+<form #formRef="ngForm" *ngIf="insuranceCar !=null">
     <div class="form-group">
         <label for="start">Počátek pojištění:</label>
-        <input [ngModel]="insuranceCar.start | date:'dd.MM.yyyy'" (ngModelChange)="onChangeDate($event)" 
-        [ngModelOptions]="{ updateOn: 'blur' }" placeholder="Datum" class="form-control" id="start" 
-        #start="ngModel" name="start"/>
+        <input [ngModel]="insuranceCar.start | date:'dd.MM.yyyy'" (ngModelChange)="onChangeDate($event)"
+            [ngModelOptions]="{ updateOn: 'blur' }" placeholder="Datum" class="form-control" id="start" #start="ngModel"
+            name="start" />
         <small *ngIf="start.invalid && start.touched" class="text-danger">
             Napište platný datum
         </small>
@@ -20,8 +20,9 @@
 
     <div class="form-group">
         <label for="brand">Registracni značka:</label>
-        <input minlength="7" required [(ngModel)]="insuranceCar.registrationMark" type="text" class="form-control" id="registrationMark"
-            placeholder="Registrační značka vozu nebo číslo karoserie" #registrationMark="ngModel" name="registrationMark" />
+        <input minlength="7" required [(ngModel)]="insuranceCar.registrationMark" type="text" class="form-control"
+            id="registrationMark" placeholder="Registrační značka vozu nebo číslo karoserie" #registrationMark="ngModel"
+            name="registrationMark" />
         <small *ngIf="registrationMark.invalid && registrationMark.touched" class="text-danger">
             Registrační značka se skládá z minimálně 7 znaků
         </small>
@@ -29,8 +30,8 @@
 
     <div class="form-group">
         <label for="enginePower">Objem válců motoru:</label>
-        <input minlength="3" required [(ngModel)]="insuranceCar.enginePower" type="number" class="form-control" id="enginePower"
-            placeholder="Objem válců motoru" #enginePower="ngModel" name="enginePower" />
+        <input minlength="3" required [(ngModel)]="insuranceCar.enginePower" type="number" class="form-control"
+            id="enginePower" placeholder="Objem válců motoru" #enginePower="ngModel" name="enginePower" />
         <small *ngIf="enginePower.invalid && enginePower.touched" class="text-danger">
             Napište objem válců motoru v ccm3
         </small>

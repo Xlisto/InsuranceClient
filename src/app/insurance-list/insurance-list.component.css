@@ -1,3 +1,19 @@
 .client {
     font-weight: bold;
 }
+
+div.list-group-item table {
+    width: 100%;
+    display: none;
+}
+
+@media screen and (min-width: 500px) {
+    .columns-view {
+        display: none;
+    }
+
+    div.list-group-item table {
+        width: 100%;
+        display: inline-table;
+    }
+}

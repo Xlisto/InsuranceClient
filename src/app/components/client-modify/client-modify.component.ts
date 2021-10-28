@@ -15,7 +15,7 @@ export class ClientModifyComponent implements OnInit {
   @ViewChild(NgForm, { static: false })
   formRef!: NgForm;
 
-  constructor() {};
+  constructor() { };
 
   get valid() {
     return this.formRef.form.valid;

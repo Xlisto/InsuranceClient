@@ -3,18 +3,19 @@
     <div class="list-group rounded">
         <div class="list-group-item m-1">
             <div class="row rounded ">
-                <div class="col-2">
+                <div class="col-sm-3">
                     <div *ngIf="client!=null">Klient:<br>
                         <span class=client>{{client.firstName}} {{client.lastName}}</span>
                     </div>
                 </div>
-                <div class="col-2">
+                <div class="col-sm-3">
                     <div *ngIf="client!=null">Adresa:<br>
-                        <span class=client>{{client.street}}, {{client.houseNumber}}<span *ngIf="client.registryNumber.length >0">, {{client.registryNumber}}</span><br>
-                        {{client.city}} {{client.zip}}</span>
+                        <span class=client>{{client.street}}, {{client.houseNumber}}<span
+                                *ngIf="client.registryNumber.length >0">, {{client.registryNumber}}</span><br>
+                            {{client.city}} {{client.zip}}</span>
                     </div>
                 </div>
-                <div class="col text-end">
+                <div class="col-sm-6 text-end">
                     <div class="btn-group m-1">
                         <button class="btn btn-primary" (click)="isModalNewInsuranceCarClosed = false">
                             Nové ručení</button>
@@ -24,9 +25,9 @@
                             [disabled]="selectedInsurance === null">Odstranit ručení</button>
                     </div>
                     <div class="btn-group m-1">
-                      <button class="btn btn-primary" (click)="back()">Seznam klientů</button>  
+                        <button class="btn btn-primary" (click)="back()">Seznam klientů</button>
                     </div>
-                    
+
                 </div>
             </div>
         </div>
@@ -36,18 +37,56 @@
     <div class="row">
         <div class="col-12">
             <div class="list-group rounded">
-                <button class="list-group-item btn rounded m-1" *ngFor="let insurance of insurancesCars"
+                <div class="list-group-item rounded m-1" *ngFor="let insurance of insurancesCars"
                     [class.active]="selectedInsurance === insurance" (click)="selectedInsurance = this.insurance;">
-                    <div class="row text-start">
-                        <div class="col">Číslo:<br>{{insurance.id}}</div>
-                        <div class="col">Založeno:<br>{{insurance.start | date: 'dd.MM.yyy'}}</div>
-                        <div class="col">Značka:<br>{{insurance.brand}}</div>
-                        <div class="col">RZ:<br>{{insurance.registrationMark}}</div>
-                        <div class="col">Obsah válců:<br>{{insurance.enginePower}}</div>
-                        <div class="col">Pojistné:<br>{{insurance.cost}}</div>
+                    <div class="columns-view">
+                        <div class="row text-start">
+                            <div class="col-6"><strong>Číslo:</strong></div>
+                            <div class="col-6">{{insurance.id}}</div>
+                        </div>
+                        <div class="row text-start">
+                            <div class="col-6"><strong>Založeno:</strong></div>
+                            <div class="col-6">{{insurance.start | date: 'dd.MM.yyy'}}</div>
+                        </div>
+                        <div class="row text-start">
+                            <div class="col-6"><strong>Značka:</strong></div>
+                            <div class="col-6">{{insurance.brand}}</div>
+                        </div>
+                        <div class="row text-start">
+                            <div class="col-6"><strong>RZ:</strong></div>
+                            <div class="col-6">{{insurance.registrationMark}}</div>
+                        </div>
+                        <div class="row text-start">
+                            <div class="col-6"><strong>Obsah válců:</strong></div>
+                            <div class="col-6">{{insurance.enginePower}}</div>
+                        </div>
+                        <div class="row text-start">
+                            <div class="col-6"><strong>Pojistné:</strong></div>
+                            <div class="col-6">{{insurance.cost}}</div>
+                        </div>
                     </div>
 
-                </button>
+
+                    <table class="table">
+                        <tr>
+                            <th>Číslo</th>
+                            <th>Založeno</th>
+                            <th>Značka</th>
+                            <th>RZ</th>
+                            <th>Obsah válců</th>
+                            <th>Pojistné</th>
+                        </tr>
+                        <tr>
+                            <td>{{insurance.id}}</td>
+                            <td>{{insurance.start | date: 'dd.MM.yyy'}}</td>
+                            <td>{{insurance.brand}}</td>
+                            <td>{{insurance.registrationMark}}</td>
+                            <td>{{insurance.enginePower}}</td>
+                            <td>{{insurance.cost}}</td>
+                        </tr>
+                    </table>
+
+                </div>
             </div>
         </div>
 
@@ -58,7 +97,8 @@
     (crossClicked)="isModalNewInsuranceCarClosed = true; ngAfterViewInit()">
     <app-insurance-car-modify *ngIf="!isModalNewInsuranceCarClosed" [clientId]="clientId"></app-insurance-car-modify>
     <button footer type="button" class="btn btn-primary" (click)="addInsurance()">Přidat</button>
-    <button footer type="button" class="btn btn-secondary" (click)="isModalNewInsuranceCarClosed = true; ngAfterViewInit()">Zavřít</button>
+    <button footer type="button" class="btn btn-secondary"
+        (click)="isModalNewInsuranceCarClosed = true; ngAfterViewInit()">Zavřít</button>
 </app-modal>
 
 <app-modal header="Opravit povinné ručení" [isClosed]="isModalEditInsuranceCarClosed"

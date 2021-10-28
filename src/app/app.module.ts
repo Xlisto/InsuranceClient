@@ -8,7 +8,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { ModalComponent } from './components/modal/modal.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PhoneModifyComponent } from './components/phone-modify/phone-modify.component';
-import { TestComponent } from './test/test.component';
 import { ClientModifyComponent } from './components/client-modify/client-modify.component';
 import { PageComponent } from './components/page/page.component';
 import { ClientFilterComponent } from './components/client-filter/client-filter.component';
@@ -24,7 +23,6 @@ import { InsuranceTypeModifyComponent } from './components/insurance-type-modify
     ClientsListComponent,
     ModalComponent,
     PhoneModifyComponent,
-    TestComponent,
     ClientModifyComponent,
     PageComponent,
     ClientFilterComponent,

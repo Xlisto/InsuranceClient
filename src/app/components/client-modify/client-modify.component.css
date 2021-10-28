@@ -1,11 +1,34 @@
 /* Chrome, Safari, Edge, Opera */
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
+
+input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
 
 /* Firefox */
+
 input[type=number] {
   -moz-appearance: textfield;
+}
+
+@media screen and (min-width: 992px) {
+  #labelHouseNumber, #labelRegistryNumber {
+    text-indent: -9999px;
+    line-height: 0;
+    /* Collapse the original line */
+  }
+
+  #labelHouseNumber::after {
+    content: "Číslo popisné";
+    text-indent: 0;
+    display: block;
+    line-height: initial;
+  }
+
+  #labelRegistryNumber::after {
+    content: "Číslo orientační";
+    text-indent: 0;
+    display: block;
+    line-height: initial;
+  }
 }

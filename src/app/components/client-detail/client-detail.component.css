@@ -1,0 +1,13 @@
+.table {
+    width:100%;
+    display: none;
+}
+
+@media screen and (min-width: 500px) {
+    .table {
+        display: inline-table;
+    }
+    .columns-view {
+        display: none;
+    }
+}

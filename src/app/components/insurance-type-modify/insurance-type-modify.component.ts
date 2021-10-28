@@ -18,11 +18,9 @@ export class InsuranceTypeModifyComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.dir(this.insuranceType);
   }
 
   get valid() {
-    console.dir(this.insuranceType);
     return this.formRef.form.valid;
   }
 

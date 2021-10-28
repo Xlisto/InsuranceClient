@@ -1,5 +1,6 @@
 import { AfterViewInit, Component, Input } from '@angular/core';
 import { ClientsService } from 'src/app/services/clients.service';
+import { InsuranceCarService } from 'src/app/services/insurance-car.service';
 import { Client } from 'src/app/services/Models/client.model';
 import { InsuranceCar } from 'src/app/services/Models/insurance-car.model';
 
@@ -15,33 +16,33 @@ export class ClientDetailComponent implements AfterViewInit {
 
   insuranceCars = new Array<InsuranceCar>();
 
-  constructor(private readonly clientsService: ClientsService) {}
+  constructor(
+    private readonly clientsService: ClientsService,
+    private readonly insuranceCarService: InsuranceCarService,) { }
 
-  ngAfterViewInit(){
-    if(this.client)
-    this.getInsurances(this.client);
+  ngAfterViewInit() {
+    if (this.client)
+      this.getInsurances(this.client);
   }
 
-  getInsurances(client:Client) {
-    if(client.clientId)
-    this.clientsService.getInsurancesCar(client.clientId)
-    .subscribe(
-      (response) => {
-        this.insuranceCars = response;
+  getInsurances(client: Client) {
+    if (client.clientId)
+      this.insuranceCarService.getInsurancesCar(client.clientId)
+        .subscribe(
+          (response) => {
+            this.insuranceCars = response;
 
-        for (let insuranceCar of response) {
-          this.clientsService.getInsurancePrice(insuranceCar)
-            .subscribe(
-              (response) => { insuranceCar.cost = response.cost },
-              (error) => console.log(error)
-            );
-        }
-
-        //console.dir(response),console.log(response.length)
-      },
-      (error) => console.log(error)
-    );
+            for (let insuranceCar of response) {
+              this.insuranceCarService.getInsurancePrice(insuranceCar)
+                .subscribe(
+                  (response) => { insuranceCar.cost = response.cost },
+                  (error) => console.log(error)
+                );
+            }
+          },
+          (error) => console.log(error)
+        );
   }
 
-  
+
 }

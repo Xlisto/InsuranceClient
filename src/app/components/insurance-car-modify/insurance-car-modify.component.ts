@@ -20,13 +20,13 @@ export class InsuranceCarModifyComponent implements OnInit {
 
   public today = new Date('dd.MM.yyyy');
 
-  constructor() {}
+  constructor() { }
 
   get valid() {
     return this.formRef.form.valid;
   }
 
-  onChangeDate(value:any) {
+  onChangeDate(value: any) {
     this.today = new Date(value);
   }
 

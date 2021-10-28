@@ -11,18 +11,10 @@ export class ClientFilterComponent implements OnInit {
 
   clientFilter = new ClientFilter();
 
-  /*@ViewChild(NgForm, {static: false})
-  formRef!: NgForm;*/
-
   @Output()
   public onFilter: EventEmitter<any> = new EventEmitter<any>();
 
   constructor() { }
-
-  /*get valid() {
-    console.log("valid "+this.formRef.form.valid);
-    return this.formRef.form.valid;
-  }*/
 
   ngOnInit(): void {
   }
