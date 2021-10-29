@@ -51,7 +51,6 @@ export class ClientsService {
   }
 
   updateClient(client: Client) {
-    console.log("Client v servise" + client.clientId);
     return this.httpClient.put(`/api/client/${client.clientId}`, client);
   }
 

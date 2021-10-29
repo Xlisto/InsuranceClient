@@ -19,8 +19,8 @@
 
     <div class="form-group">
         <label for="pin">Rodné číslo:</label>
-        <input minlength="11" required [(ngModel)]="client.pin" type="text" class="form-control" id="pin"
-            placeholder="Rodné číslo" #pin="ngModel" name="pin" />
+        <input minlength="10" required [(ngModel)]="client.pin" pattern="[\d]{6}/[\d]{3,4}" type="text"
+            class="form-control" id="pin" placeholder="Rodné číslo" #pin="ngModel" name="pin" />
         <small *ngIf="pin.invalid && pin.touched" class="text-danger">
             Napište rodné číslo s lomítkem
         </small>
@@ -40,8 +40,9 @@
         <div class="col-3">
             <div class="form-group">
                 <label for="houseNumber" id="labelHouseNumber">Č.p.:</label>
-                <input minlength="1" required [(ngModel)]="client.houseNumber" type="number" class="form-control"
-                    id="houseNumber" placeholder="Číslo popisné" #houseNumber="ngModel" name="houseNumber" />
+                <input minlength="1" required [(ngModel)]="client.houseNumber" pattern="[\d]+" type="number"
+                    class="form-control" id="houseNumber" placeholder="Číslo popisné" #houseNumber="ngModel"
+                    name="houseNumber" />
                 <small *ngIf="houseNumber.invalid && houseNumber.touched" class="text-danger">
                     Napište číslo popisné
                 </small>
@@ -50,8 +51,9 @@
         <div class="col-3">
             <div class="form-group">
                 <label for="registryNumber" id="labelRegistryNumber">Č. o.:</label>
-                <input [(ngModel)]="client.registryNumber" type="number" class="form-control" id="registryNumber"
-                    placeholder="Číslo orientační" #registryNumber="ngModel" name="registryNumber" />
+                <input [(ngModel)]="client.registryNumber" type="number" class="form-control"
+                    id="registryNumber" placeholder="Číslo orientační" 
+                    name="registryNumber" />
             </div>
         </div>
     </div>
@@ -60,8 +62,8 @@
         <div class="col-3">
             <div class="form-group">
                 <label for="zip">PSČ</label>
-                <input minlength="5" required [(ngModel)]="client.zip" type="text" class="form-control" id="zip"
-                    placeholder="PSČ" #zip="ngModel" name="zip" (test)="false" />
+                <input minlength="5" required [(ngModel)]="client.zip" pattern="[\d]{5}|[\d]{3} [\d]{2}" type="text"
+                    class="form-control" id="zip" placeholder="PSČ" #zip="ngModel" name="zip" (test)="false" />
                 <small *ngIf="zip.invalid && zip.touched" class="text-danger">
                     PSČ je pět čísel
                 </small>
@@ -85,26 +87,34 @@
         <div class="col-4">
             <div class="form-group" *ngIf="client.phones[0] != null">
                 <label for="phoneNumber">Telefon:</label>
-                <input minlength="9" required [(ngModel)]="client.phones[0].phoneNumber" type="text"
-                    class="form-control" id="phoneNumber" placeholder="Telefonní číslo" #phoneNumber1="ngModel"
-                    name="phoneNumber1" />
+                <input minlength="9" required [(ngModel)]="client.phones[0].phoneNumber"
+                    pattern="([+][\d]{3})? ?[\d]{3} ?[\d]{3} ?[\d]{3}" type="text" class="form-control" id="phoneNumber"
+                    placeholder="Telefonní číslo" #phoneNumber1="ngModel" name="phoneNumber1" />
                 <small *ngIf="phoneNumber1.invalid && phoneNumber1.touched" class="text-danger">
-                    Zadejte telefonní celé číslo
+                    Zadejte celé telefonní číslo
                 </small>
             </div>
         </div>
         <div class="col-4">
             <div class="form-group" *ngIf="client.phones[1] != null">
-                <label for="phoneNumber">Telefon:</label>
-                <input [(ngModel)]="client.phones[1].phoneNumber" type="text" class="form-control" id="phoneNumber"
-                    placeholder="Telefonní číslo" #phoneNumber2="ngModel" name="phoneNumber2" />
+                <label for="phoneNumber2">Telefon:</label>
+                <input [(ngModel)]="client.phones[1].phoneNumber" pattern="(([+][\d]{3})? ?[\d]{3} ?[\d]{3} ?[\d]{3})?"
+                    type="text" class="form-control" id="phoneNumber2" placeholder="Telefonní číslo"
+                    #phoneNumber2="ngModel" name="phoneNumber2" />
+                <small *ngIf="phoneNumber2.invalid && phoneNumber2.touched" class="text-danger">
+                    Zadejte celé telefonní číslo nebo ponechte pole prázdné
+                </small>
             </div>
         </div>
         <div class="col-4">
             <div class="form-group" *ngIf="client.phones[2] != null">
                 <label for="phoneNumber3">Telefon:</label>
-                <input [(ngModel)]="client.phones[2].phoneNumber" type="text" class="form-control" id="phoneNumber"
-                    placeholder="Telefonní číslo" #phoneNumber3="ngModel" name="phoneNumber3" />
+                <input [(ngModel)]="client.phones[2].phoneNumber" pattern="(([+][\d]{3})? ?[\d]{3} ?[\d]{3} ?[\d]{3})?"
+                    type="text" class="form-control" id="phoneNumber3" placeholder="Telefonní číslo"
+                    #phoneNumber3="ngModel" name="phoneNumber3" />
+                <small *ngIf="phoneNumber3.invalid && phoneNumber3.touched" class="text-danger">
+                    Zadejte celé telefonní číslo nebo ponechte pole prázdné
+                </small>
             </div>
         </div>
     </div>

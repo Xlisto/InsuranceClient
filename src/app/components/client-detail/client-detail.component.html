@@ -2,10 +2,13 @@
     <div class="row">
         <p class="col-6" *ngIf="client != null">
             {{client.firstName}} {{client.lastName}}<br>
-            {{client.street}} {{client.houseNumber}}<span *ngIf="client.registryNumber.length>0">,
-                {{client.registryNumber}}</span><br>
+            {{client.street}} {{client.houseNumber}}
+            <span *ngIf="client.registryNumber != null">
+                <span *ngIf="client.registryNumber.length>0">,
+                    {{client.registryNumber}}
+                </span>
+            </span><br>
             {{client.zip}} {{client.city}}
-
         </p>
         <p class="col-6">
             Uzavřených ručení: {{insuranceCars.length}}
@@ -53,8 +56,8 @@
             </div>
         </div>
     </div>
-   
-    
+
+
     <table class="table">
         <tr>
             <th>Číslo. poj</th>

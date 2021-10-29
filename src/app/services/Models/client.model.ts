@@ -11,14 +11,14 @@ export class Client {
         public pin: string,
         public street: string,
         public houseNumber: string,
-        public registryNumber: string,
         public zip: string,
         public city: string,
-        public phones: Array<any>
+        public phones: Array<any>,
+        public registryNumber: string
     ) { }
 
     static createEmpty() {
-        let client = new Client("", "", "", "", "", "", "", "", []);
+        let client = new Client("", "", "", "", "", "", "", [], "");
         for (let i = 0; i < 3; i++) {
             client.phones.push(new Phone());
         }
